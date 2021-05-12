@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppController">
+   <top>
+      <Label prefHeight="28.0" prefWidth="106.0" text="Költségvetés figyelő" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <TableView fx:id="dataTable" prefHeight="280.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="name" prefWidth="115.20001220703125" text="Név" />
+          <TableColumn fx:id="sum" prefWidth="124.800048828125" text="Összeg" />
+            <TableColumn fx:id="description" prefWidth="266.40008544921875" text="Megjegyzés" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <SplitPane prefHeight="71.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="85.0" prefWidth="599.0">
+               <children>
+                  <AnchorPane layoutX="6.0" layoutY="9.0" minHeight="0.0" minWidth="0.0" prefHeight="98.0" prefWidth="194.0" AnchorPane.topAnchor="9.0">
+                     <children>
+                        <Label text="Bevétel:" />
+                        <Label fx:id="totalPos" layoutX="42.0" text="Label" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="200.0" layoutY="8.0" minHeight="0.0" minWidth="0.0" prefHeight="96.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Kiadás:" />
+                        <Label fx:id="totalNeg" layoutX="38.0" text="Label" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="408.0" layoutY="9.0" minHeight="0.0" minWidth="0.0" prefHeight="98.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Összegzés:" />
+                        <Label fx:id="totalVal" layoutX="58.0" text="Label" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </bottom>
+   <left>
+      <Pane prefHeight="311.0" prefWidth="90.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="14.0" layoutY="131.0" mnemonicParsing="false" onMouseClicked="#goToAdd" text="Hozzáad" />
+            <Button layoutX="14.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#goToRemove" prefHeight="25.0" prefWidth="61.0" text="Töröl" />
+            <Button layoutX="10.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#goToStat" text="Statisztika" />
+         </children>
+      </Pane>
+   </left>
+</BorderPane>
