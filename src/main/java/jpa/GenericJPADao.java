@@ -41,10 +41,4 @@ public abstract class GenericJPADao<T> {
         entityManager.remove(entity);
         entityManager.getTransaction().commit();
     }
-
-    public void update(T entity) {
-        entityManager.getTransaction().begin();
-        entityManager.merge(entity);
-        entityManager.getTransaction().commit();
-    }
 }

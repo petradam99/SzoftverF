@@ -7,7 +7,7 @@
             <property name="javax.persistence.jdbc.url" value="${db.url}"/>
             <property name="javax.persistence.jdbc.user" value="${db.user}"/>
             <property name="javax.persistence.jdbc.password" value="${db.password}"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
         </properties>
