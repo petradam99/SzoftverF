@@ -27,6 +27,10 @@ public class StatController {
 
     private DataDao dataDao;
 
+    /**
+     * Visszatér a kezdő oldalra.
+     * @param mouseEvent Kattintásra történő visszatéréshez.
+     */
     @FXML
     public void returnToApp(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
@@ -45,21 +49,42 @@ public class StatController {
         allSum.setText(String.valueOf(getSumOfPrices(dataModels)));
     }
 
+    /**
+     * Visszaadja a vásárlások átlagos összegét.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszatér az összes elem átlagával, ha nincs elem az adatbázisban, akkor 0-val.
+     */
     public Double getAvgOfAll(List<DataModel> dataModels){
-        return dataModels.stream().mapToLong(DataModel::getAmount).average().orElse(0);
+        return dataModels.stream().filter(dataModel->dataModel.getAmount()<0)
+                .mapToLong(DataModel::getAmount).average().orElse(0);
     }
 
+    /**
+     * Visszatér a legnagyobb elköltött összeggel.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszatér a legkisebb 0-tól kisebb számmal, ha nincs elem az adatbázisban, akkor 0-val.
+     */
     public Long getMaxBuy(List<DataModel> dataModels){
         return dataModels.stream().filter(dataModel->dataModel.getAmount()<0)
                 .mapToLong(DataModel::getAmount).min().orElse(0);
     }
 
+    /**
+     * Visszatér a legkisebb elköltött összeggel.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszatér a legnagyobb 0-tól kisebb számmal, ha nincs elem az adatbázisban, akkor 0-val.
+     */
     public Long getMinBuy(List<DataModel> dataModels){
         return dataModels.stream()
                 .filter(dataModel->dataModel.getAmount()<0)
                 .mapToLong(DataModel::getAmount).max().orElse(0);
     }
 
+    /**
+     * Visszaadja a költekezések Áfa nélküli átlagát.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszatér a 0-tól kisebb számok átlagával, amely számok a költekezések áfa nélküli értékeit jelentik, és 0-val, ha nincs elem az adatbázisban.
+     */
     public double getAverageAmountWithoutAFA(List<DataModel> dataModels){
         return dataModels.stream()
                 .filter(dataModel->dataModel.getAmount()<0)
@@ -67,18 +92,33 @@ public class StatController {
                 .average().orElse(0);
     }
 
+    /**
+     * Visszaadja az eddigi összes kiadás összegét.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszaadja az összes 0-tól kisebb érték összegét.
+     */
     public Long getSumOfPrices(List<DataModel> dataModels){
         return dataModels.stream()
                 .filter(dataModel->dataModel.getAmount()<0)
                 .mapToLong(DataModel::getAmount).sum();
     }
 
+    /**
+     * Visszaadja az eddigi összes költekezés áfájanak az összegét.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszatér a 0-tól kisebb számokból vett áfáknak az összegével.
+     */
     public Double getAllAfa(List<DataModel> dataModels){
         return dataModels.stream()
                 .filter(dataModel->dataModel.getAmount()<0)
                 .mapToDouble(amount -> getAFA(amount.getAmount())).sum();
     }
 
+    /**
+     * Áfa számítása.
+     * @param amount A kiadás értéke.
+     * @return Visszatér az áfa értékével.
+     */
     public double getAFA(Long amount){
         return 0.27*amount;
     }

@@ -22,21 +22,31 @@ public class AddController {
 
     private AppController app;
 
+    /**
+     * Az AppController osztály beállítása.
+     */
     public void setApp(AppController app) {
         this.app = app;
     }
-
 
     public void initialize() {
         dataDao = DataDao.getInstance();
     }
 
+    /**
+     * Visszatérés a kezdő oldalra, megnyitott ablak bezárása.
+     */
     public void returnToApp(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.close();
         Logger.info("Returned to the main side");
     }
 
+    /**
+     * @param mouseEvent Kattintás szükséges hozzá
+     * Új elem hozzáadása az adatbázishoz, majd frissíti a táblázatot.
+     * Amennyiben az összegnél nem szám szerepel, hiba.
+     */
     public void AddRow(MouseEvent mouseEvent) {
         try {
             long osszeg=Long.parseLong(amount.getText());

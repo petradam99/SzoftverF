@@ -36,7 +36,7 @@ public class StatControllerTest {
     @Test
     public void getAvgOfAllShouldReturnTheAvgOfAllValueWhenHaveValue(){
         //Given
-        double expected = 94000/3D;
+        double expected = (-10000-20000)/2;
         //When
         double actual = underTest.getAvgOfAll(dataModel);
         //Then

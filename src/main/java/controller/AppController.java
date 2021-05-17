@@ -51,6 +51,10 @@ public class AppController {
         setGraphic();
     }
 
+    /**
+     * Az összes bevétel beállítása.
+     * @param value A value értéket kapja meg a függvény, és állítja be értékként.
+     */
     @FXML
     public void setTotalPos(Long value) {
         if (value != null) {
@@ -58,6 +62,11 @@ public class AppController {
             Logger.info("New salary");
         } else this.totalPos.setText("0 Ft");
     }
+
+    /**
+     * Az összes kiadás beállítása.
+     * @param value A value értéket kapja meg a függvény, és állítja be értékként.
+     */
     @FXML
     public void setTotalNeg(Long value) {
         if (value != null) {
@@ -66,6 +75,10 @@ public class AppController {
         } else this.totalNeg.setText("0 Ft");
     }
 
+    /**
+     * Az összes érték összegzése.
+     * @param value A value értéket kapja meg a függvény, és állítja be értékként.
+     */
     @FXML
     public void setTotalVal(Long value) {
         if (value != null) {
@@ -74,6 +87,9 @@ public class AppController {
         } else this.totalVal.setText("0 Ft");
     }
 
+    /**
+     * Beállítja a grafikát, a táblázatot és a táblázat elemeit.
+     */
     @FXML
     public void setGraphic() {
         List<DataModel> dataList = dataDao.findAll();
@@ -105,18 +121,37 @@ public class AppController {
         setTotalVal(getTotalValue(dataList));
     }
 
+    /**
+     * Visszaadja a bevételek összegét.
+     * @param dataModel Egy dataModel listát kap paraméterül
+     * @return Visszatér a 0-tól nagyobb elemek összegével.
+     */
     public Long getTotalPositiveValue(List<DataModel> dataModel){
         return dataModel.stream().filter(element -> element.getAmount()>0).mapToLong(DataModel::getAmount).sum();
     }
 
+    /**
+     * Visszaadja a kiadások összegét.
+     * @param dataModel Egy dataModel listát kap paraméterül.
+     * @return Visszatér a 0-tól kisebb elemek összegével.
+     */
     public Long getTotalNegativeValue(List<DataModel> dataModel){
         return dataModel.stream().filter(element -> element.getAmount()<0).mapToLong(DataModel::getAmount).sum();
     }
 
+    /**
+     * Visszaadja a bevételek és kiadások összegzését.
+     * @param dataModel Egy dataModel listát kap paraméterül.
+     * @return Visszatér az összes elem összegével.
+     */
     public Long getTotalValue(List<DataModel> dataModel){
         return dataModel.stream().mapToLong(DataModel::getAmount).sum();
     }
 
+    /**
+     * Megjeleníti a hozzáadáshoz tartozó ablakot
+     * @param mouseEvent Kattintásra történő megnyitást biztosítja a paraméter.
+     */
     public void goToAdd(MouseEvent mouseEvent) {
 
         try {
@@ -135,6 +170,10 @@ public class AppController {
         }
     }
 
+    /**
+     * Elem eltávolítása az adatbázisból és a grafikai felületről.
+     * @param mouseEvent Kattintásra történő eltávolításhoz.
+     */
     @FXML
     public void goToRemove(MouseEvent mouseEvent) {
         try {
@@ -146,6 +185,11 @@ public class AppController {
 
     }
 
+    /**
+     * A statisztika megjelenítése új grafikus ablakban.
+     * @param mouseEvent Kattintásra történő átirányításhoz.
+     * @throws IOException Amennyiben nem lehet megnyitni a statisztika oldalát.
+     */
     @FXML
     public void goToStat(MouseEvent mouseEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/stat.fxml"));
@@ -155,5 +199,6 @@ public class AppController {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(new Scene(root, 600, 450));
         stage.show();
+        Logger.info("Opened the statistics site.");
     }
 }
