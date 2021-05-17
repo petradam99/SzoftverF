@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import result.DataDao;
 import result.model.DataModel;
 
+import org.tinylog.Logger;
+
 public class AddController {
 
     @FXML
@@ -32,6 +34,7 @@ public class AddController {
     public void returnToApp(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.close();
+        Logger.info("Returned to the main side");
     }
 
     public void AddRow(MouseEvent mouseEvent) {
@@ -46,6 +49,7 @@ public class AddController {
             app.setGraphic();
             Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             stage.close();
+            Logger.info("Added a new row.");
         }
         catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);

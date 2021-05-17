@@ -12,6 +12,8 @@ import result.model.DataModel;
 
 import java.util.List;
 
+import org.tinylog.Logger;
+
 public class StatController {
 
     public Label avg;
@@ -29,6 +31,7 @@ public class StatController {
     public void returnToApp(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.close();
+        Logger.info("Returned to the main site");
     }
 
     public void initialize() {

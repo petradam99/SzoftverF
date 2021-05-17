@@ -23,6 +23,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 
+import org.tinylog.Logger;
+
 public class AppController {
 
     @FXML
@@ -53,12 +55,14 @@ public class AppController {
     public void setTotalPos(Long value) {
         if (value != null) {
             this.totalPos.setText(value.toString() + " Ft");
+            Logger.info("New salary");
         } else this.totalPos.setText("0 Ft");
     }
     @FXML
     public void setTotalNeg(Long value) {
         if (value != null) {
             this.totalNeg.setText(value.toString() + " Ft");
+            Logger.info("New outlay");
         } else this.totalNeg.setText("0 Ft");
     }
 
@@ -66,6 +70,7 @@ public class AppController {
     public void setTotalVal(Long value) {
         if (value != null) {
             this.totalVal.setText(value.toString() + " Ft");
+            Logger.info("New balance");
         } else this.totalVal.setText("0 Ft");
     }
 
@@ -115,7 +120,7 @@ public class AppController {
     public void goToAdd(MouseEvent mouseEvent) {
 
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/add.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/add.fxml"));
             Parent root = fxmlLoader.load();
             AddController controller = fxmlLoader.getController();
             controller.setApp(this);
@@ -124,6 +129,7 @@ public class AppController {
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(new Scene(root, 450, 450));
             stage.show();
+            Logger.info("Opened add screen");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -142,7 +148,7 @@ public class AppController {
 
     @FXML
     public void goToStat(MouseEvent mouseEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/stat.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/stat.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setResizable(false);

@@ -1,0 +1,10 @@
+controller\AddController.class
+result\model\DataModel$DataModelBuilder.class
+controller\AppController$1.class
+main\Main.class
+main\App.class
+controller\AppController.class
+controller\StatController.class
+result\DataDao.class
+result\model\DataModel.class
+jpa\GenericJPADao.class
