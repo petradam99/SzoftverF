@@ -8,16 +8,27 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
+/**
+ * Adatbázis modell osztálya.
+ */
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class DataModel {
+    /**
+     * Összeg beállítása.
+     * @param amount Összeg paraméter.
+     */
     public void setAmount(Long amount) {
         this.amount = amount;
     }
 
+    /**
+     * Leírás beállítása.
+     * @param description Leírás paraméter.
+     */
     public void setDescription(String description) {
         this.description = description;
     }

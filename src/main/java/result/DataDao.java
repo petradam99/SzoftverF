@@ -6,6 +6,9 @@ import result.model.DataModel;
 import javax.persistence.Persistence;
 import java.util.List;
 
+/**
+ * Az adattár (repository) osztálya.
+ */
 public class DataDao extends GenericJPADao<DataModel> {
     private static DataDao instance;
 

@@ -6,18 +6,34 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Java Persistance API minta.
+ * @param <T> T típusú entitás.
+ */
 public abstract class GenericJPADao<T> {
     protected Class<T> entityClass;
     protected EntityManager entityManager;
 
+    /**
+     * A {@link GenericJPADao} settere.
+     * @param entityClass T típusú entitás.
+     */
     public GenericJPADao(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
+    /**
+     * {@link EntityManager} getter.
+     * @return Visszatér egy entityManager-rel.
+     */
     public EntityManager getEntityManager() {
         return entityManager;
     }
 
+    /**
+     * Setter metódus.
+     * @param entityManager Egy entityManagert kap paraméterül.
+     */
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
