@@ -11,6 +11,11 @@ import java.util.Objects;
 
 public class App extends Application {
 
+    /**
+     * Alkalmazás indításakor a kezdő ablak megnyitása.
+     * @param stage Az ablak.
+     * @throws Exception Amennyiben nem megnyitható.
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/application.fxml")));

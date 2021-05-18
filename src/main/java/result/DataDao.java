@@ -13,6 +13,10 @@ public class DataDao extends GenericJPADao<DataModel> {
         super(DataModel.class);
     }
 
+    /**
+     * Visszaadja az osztály egyetlen létező példányát.
+     * @return Az osztály példánya (instance).
+     */
     public static DataDao getInstance() {
         if (instance == null) {
             instance = new DataDao();
@@ -21,6 +25,10 @@ public class DataDao extends GenericJPADao<DataModel> {
         return instance;
     }
 
+    /**
+     * Lekéri az adatbázisban található entitások listáját.
+     * @return {@link DataModel} típusú entitások listája.
+     */
     public List<DataModel> findAll() {
         return entityManager.createQuery("SELECT r FROM DataModel r order by r.created DESC", DataModel.class)
                 .getResultList();
