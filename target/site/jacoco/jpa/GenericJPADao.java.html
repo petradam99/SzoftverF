@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GenericJPADao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">homework-template-project</a> &gt; <a href="index.source.html" class="el_package">jpa</a> &gt; <span class="el_source">GenericJPADao.java</span></div><h1>GenericJPADao.java</h1><pre class="source lang-java linenums">package jpa;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+public abstract class GenericJPADao&lt;T&gt; {
+    protected Class&lt;T&gt; entityClass;
+    protected EntityManager entityManager;
+
+<span class="nc" id="L13">    public GenericJPADao(Class&lt;T&gt; entityClass) {</span>
+<span class="nc" id="L14">        this.entityClass = entityClass;</span>
+<span class="nc" id="L15">    }</span>
+
+    public EntityManager getEntityManager() {
+<span class="nc" id="L18">        return entityManager;</span>
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+<span class="nc" id="L22">        this.entityManager = entityManager;</span>
+<span class="nc" id="L23">    }</span>
+
+    /**
+     * Adatbázisba történő tárolás.
+     * @param entity T típusú entitás.
+     */
+    public void persist(T entity) {
+<span class="nc" id="L30">        entityManager.getTransaction().begin();</span>
+<span class="nc" id="L31">        entityManager.persist(entity);</span>
+<span class="nc" id="L32">        entityManager.getTransaction().commit();</span>
+<span class="nc" id="L33">    }</span>
+
+    /**
+     * Visszatér egy lehetséges eredménnyel.
+     * @param primaryKey Elsődleges kulcs.
+     * @return A megtalált entitás vagy {@link Optional#empty()}.
+     */
+    public Optional&lt;T&gt; find(Object primaryKey) {
+<span class="nc" id="L41">        return Optional.ofNullable(entityManager.find(entityClass, primaryKey));</span>
+    }
+
+    /**
+     * Visszatér a T típusú entitás listájával.
+     * @return A T típusú entitás listája vagy {@link Collections#emptyList()}.
+     */
+    public List&lt;T&gt; findAll() {
+<span class="nc" id="L49">        TypedQuery&lt;T&gt; typedQuery = entityManager.createQuery(&quot;FROM &quot; + entityClass.getSimpleName(), entityClass);</span>
+<span class="nc" id="L50">        return typedQuery.getResultList();</span>
+    }
+
+    /**
+     * Töröl egy entitást az adatbázisból.
+     * @param entity T típusú entitás.
+     */
+    public void remove(T entity) {
+<span class="nc" id="L58">        entityManager.getTransaction().begin();</span>
+<span class="nc" id="L59">        entityManager.remove(entity);</span>
+<span class="nc" id="L60">        entityManager.getTransaction().commit();</span>
+<span class="nc" id="L61">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

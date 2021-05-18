@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StatController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">homework-template-project</a> &gt; <a href="index.source.html" class="el_package">controller</a> &gt; <span class="el_source">StatController.java</span></div><h1>StatController.java</h1><pre class="source lang-java linenums">package controller;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import result.DataDao;
+import result.model.DataModel;
+
+import java.util.List;
+
+import org.tinylog.Logger;
+
+<span class="fc" id="L17">public class StatController {</span>
+
+    public Label avg;
+    public Label maxBuy;
+    public Label minBuy;
+    public Label withoutAfa;
+    public Label Afa;
+    public Label allSum;
+
+<span class="fc" id="L26">    ObservableList&lt;String&gt; choices= FXCollections.observableArrayList(&quot;napi&quot;,&quot;havi&quot;);</span>
+
+    private DataDao dataDao;
+
+    /**
+     * Visszatér a kezdő oldalra.
+     * @param mouseEvent Kattintásra történő visszatéréshez.
+     */
+    @FXML
+    public void returnToApp(MouseEvent mouseEvent) {
+<span class="nc" id="L36">        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();</span>
+<span class="nc" id="L37">        stage.close();</span>
+<span class="nc" id="L38">        Logger.info(&quot;Returned to the main site&quot;);</span>
+<span class="nc" id="L39">    }</span>
+
+    public void initialize() {
+<span class="nc" id="L42">        dataDao = DataDao.getInstance();</span>
+<span class="nc" id="L43">        List&lt;DataModel&gt; dataModels = dataDao.findAll();</span>
+<span class="nc" id="L44">        avg.setText(String.valueOf(getAvgOfAll(dataModels)));</span>
+<span class="nc" id="L45">        maxBuy.setText(String.valueOf(getMaxBuy(dataModels)));</span>
+<span class="nc" id="L46">        minBuy.setText(String.valueOf(getMinBuy(dataModels)));</span>
+<span class="nc" id="L47">        withoutAfa.setText(String.valueOf(getAverageAmountWithoutAFA(dataModels)));</span>
+<span class="nc" id="L48">        Afa.setText(String.valueOf(getAllAfa(dataModels)));</span>
+<span class="nc" id="L49">        allSum.setText(String.valueOf(getSumOfPrices(dataModels)));</span>
+<span class="nc" id="L50">    }</span>
+
+    /**
+     * Visszaadja a vásárlások átlagos összegét.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszatér az összes elem átlagával, ha nincs elem az adatbázisban, akkor 0-val.
+     */
+    public Double getAvgOfAll(List&lt;DataModel&gt; dataModels){
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        return dataModels.stream().filter(dataModel-&gt;dataModel.getAmount()&lt;0)</span>
+<span class="fc" id="L59">                .mapToLong(DataModel::getAmount).average().orElse(0);</span>
+    }
+
+    /**
+     * Visszatér a legnagyobb elköltött összeggel.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszatér a legkisebb 0-tól kisebb számmal, ha nincs elem az adatbázisban, akkor 0-val.
+     */
+    public Long getMaxBuy(List&lt;DataModel&gt; dataModels){
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        return dataModels.stream().filter(dataModel-&gt;dataModel.getAmount()&lt;0)</span>
+<span class="fc" id="L69">                .mapToLong(DataModel::getAmount).min().orElse(0);</span>
+    }
+
+    /**
+     * Visszatér a legkisebb elköltött összeggel.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszatér a legnagyobb 0-tól kisebb számmal, ha nincs elem az adatbázisban, akkor 0-val.
+     */
+    public Long getMinBuy(List&lt;DataModel&gt; dataModels){
+<span class="fc" id="L78">        return dataModels.stream()</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">                .filter(dataModel-&gt;dataModel.getAmount()&lt;0)</span>
+<span class="fc" id="L80">                .mapToLong(DataModel::getAmount).max().orElse(0);</span>
+    }
+
+    /**
+     * Visszaadja a költekezések Áfa nélküli átlagát.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszatér a 0-tól kisebb számok átlagával, amely számok a költekezések áfa nélküli értékeit jelentik, és 0-val, ha nincs elem az adatbázisban.
+     */
+    public double getAverageAmountWithoutAFA(List&lt;DataModel&gt; dataModels){
+<span class="fc" id="L89">        return dataModels.stream()</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">                .filter(dataModel-&gt;dataModel.getAmount()&lt;0)</span>
+<span class="fc" id="L91">                .mapToDouble(amount -&gt;amount.getAmount()- getAFA(amount.getAmount()))</span>
+<span class="fc" id="L92">                .average().orElse(0);</span>
+    }
+
+    /**
+     * Visszaadja az eddigi összes kiadás összegét.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszaadja az összes 0-tól kisebb érték összegét.
+     */
+    public Long getSumOfPrices(List&lt;DataModel&gt; dataModels){
+<span class="fc" id="L101">        return dataModels.stream()</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">                .filter(dataModel-&gt;dataModel.getAmount()&lt;0)</span>
+<span class="fc" id="L103">                .mapToLong(DataModel::getAmount).sum();</span>
+    }
+
+    /**
+     * Visszaadja az eddigi összes költekezés áfájanak az összegét.
+     * @param dataModels Egy dataModel listát kap paraméterül.
+     * @return Visszatér a 0-tól kisebb számokból vett áfáknak az összegével.
+     */
+    public Double getAllAfa(List&lt;DataModel&gt; dataModels){
+<span class="fc" id="L112">        return dataModels.stream()</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">                .filter(dataModel-&gt;dataModel.getAmount()&lt;0)</span>
+<span class="fc" id="L114">                .mapToDouble(amount -&gt; getAFA(amount.getAmount())).sum();</span>
+    }
+
+    /**
+     * Áfa számítása.
+     * @param amount A kiadás értéke.
+     * @return Visszatér az áfa értékével.
+     */
+    public double getAFA(Long amount){
+<span class="fc" id="L123">        return 0.27*amount;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

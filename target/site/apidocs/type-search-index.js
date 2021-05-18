@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"controller","l":"AddController"},{"l":"All Classes","u":"allclasses-index.html"},{"p":"main","l":"App"},{"p":"controller","l":"AppController"},{"p":"result","l":"DataDao"},{"p":"result.model","l":"DataModel"},{"p":"jpa","l":"GenericJPADao"},{"p":"main","l":"Main"},{"p":"controller","l":"StatController"}];updateSearchResults();

@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+homework-template-project,result,DataDao,24,0,2,0,8,0,4,0,3,0
+homework-template-project,controller,StatController,62,160,0,12,13,20,2,22,2,16
+homework-template-project,controller,AppController.new TableCell() {...},27,0,2,0,7,0,3,0,2,0
+homework-template-project,controller,AppController,215,48,6,4,61,4,12,8,9,6
+homework-template-project,controller,AddController,82,0,0,0,29,0,5,0,5,0
+homework-template-project,result.model,DataModel.DataModelBuilder,20,25,0,0,0,1,3,4,3,4
+homework-template-project,result.model,DataModel,196,22,38,0,11,3,32,3,13,3
+homework-template-project,jpa,GenericJPADao,60,0,0,0,17,0,7,0,7,0
+homework-template-project,main,App,27,0,0,0,7,0,2,0,2,0
+homework-template-project,main,Main,7,0,0,0,3,0,2,0,2,0

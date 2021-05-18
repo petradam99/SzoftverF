@@ -1,0 +1,4 @@
+/**
+ * Program futtatása.
+ */
+package main;
